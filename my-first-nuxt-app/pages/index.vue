@@ -23,17 +23,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import AppLogo from '~/components/AppLogo.vue'
 
 export default {
-  async asyncData({ store }) {
-    if(store.getters['items'].length) {
-      return
+  async asyncData({ app }) {
+    const items = await app.$axios.$get('https://qiita.com/api/v2/items?query=tag:nuxt.js')
+    return {
+         items
     }
-    await store.dispatch('fetchItems')
-  },
-  computed: {
-    ...mapGetters(['items'])
   }
 }
 // afeca91dfbce679756cb3b964b23c546a1996082 アクセストークン
